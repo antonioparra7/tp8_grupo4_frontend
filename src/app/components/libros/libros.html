@@ -1,13 +1,13 @@
 <div class="container">
-    <form class="example-form">
+    <form class="example-form" [formGroup]="formulario">
         <!-- AÑADIR VALUE EN LOS INPUT Y ASOCIARLO A UN OBJETO -->
         <mat-form-field class="example-full-width">
             <mat-label>Titulo</mat-label>
-            <input matInput placeholder="Titulo">
+            <input matInput placeholder="Titulo" formControlName="titulo">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Tipo</mat-label>
-            <mat-select matNativeControl required>
+            <mat-select matNativeControl required formControlName="tipo">
                 <mat-option value="NOVELA">Novela</mat-option>
                 <mat-option value="TEATRO">Teatro</mat-option>
                 <mat-option value="POESIA">Poesia</mat-option>
@@ -16,13 +16,13 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Editorial</mat-label>
-            <input matInput placeholder="Editorial">
+            <input matInput placeholder="Editorial"formControlName="editorial">
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Año</mat-label>
-            <input matInput placeholder="Año">
+            <input matInput placeholder="Año" formControlName="anyo">
         </mat-form-field>
-        <button matButton="filled" type="submit">Agregar libro</button>
+        <button (click)="agregarLibro()" matButton="filled" type="submit">Agregar libro</button>
     </form>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
