@@ -6,20 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { LibroService } from '../../services/libro-service';
-import { HttpClientModule } from '@angular/common/http';
+import { Libro } from '../../models/libro';
 
 @Component({
   selector: 'app-libros',
   standalone: true,
   providers: [LibroService],
   imports: [
-    MatButtonModule, 
-    MatTableModule, 
-    MatInputModule, 
-    MatFormFieldModule, 
-    MatSelectModule, 
-    ReactiveFormsModule,
-    HttpClientModule
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   templateUrl: './libros.html',
   styleUrl: './libros.css'
@@ -38,12 +37,15 @@ export class Libros {
   }
 
   displayedColumns: string[] = ['titulo', 'tipo', 'editorial', 'anyo'];
-  dataSource = [{ titulo: 'Harry Potter', tipo: 'NOVELA', editorial: 'Libro de bolsillo', anyo: 1623 }];
+  listaLibros: any[] = [];
   libro: any;
+
+  ngOnInit() {
+    this.listarLibros();
+  }
+
   // Agregar un libro
   agregarLibro() {
-    
-
     if (this.formulario.valid) {
       this.libro = {
         titulo: this.formulario.get('titulo')?.value,
@@ -66,6 +68,24 @@ export class Libros {
         alert("Error");
       }
     )
+  }
+
+  // Listar libros
+  listarLibros() {
+    this.libroService.listarLibros().subscribe(
+      (response: any) => {
+        console.log("Libros obtenidos:", response);
+        this.listaLibros = response;
+      },
+      (error: any) => {
+        console.error("Error al listar libros:", error);
+        alert("Error al listar libros");
+      }
+    );
+  }
+
+  goPrestamos() {
+    
   }
 
 }

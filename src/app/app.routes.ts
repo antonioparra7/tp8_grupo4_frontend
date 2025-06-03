@@ -1,15 +1,11 @@
 import { Libros } from './components/libros/libros';
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Prestamos } from './components/prestamos/prestamos';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {path:"libros", component:Libros},
-    {path:"", redirectTo:"libros", pathMatch:"full"},
+    { path: "libros", component: Libros },
+    { path: "", redirectTo: "libros", pathMatch: "full" },
+    { path: "prestamos", component: Prestamos }
 ];
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
 
-export class AppModule{}
