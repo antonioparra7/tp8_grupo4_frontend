@@ -1,45 +1,20 @@
-<h1>Prestar libros</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css">
 
-<!--
+<div class="container">
+    <h1>Prestar libros</h1>
 
-<form class="example-form" [formGroup]="formulario">
-    <mat-form-field>
-        <mat-label>Copias de los libros</mat-label>
-        <mat-select [dataSource]="listaCopias" required formControlName="copia">
-            <mat-option *matCellDef="let copia"  [value]="copia.id">
-                {{copia.id}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Lectores</mat-label>
-        <mat-select [dataSource]="listaLectores" required formControlName="lector">
-            <mat-option *matCellDef="let lector"  [value]="lector.nombre">
-                {{lector.nombre}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button (click)="prestar()" matButton="filled" type="submit">Agregar libro</button>
-</form>
+    <!--Formulario sin material-->
+    <form [formGroup]="formulario">
+        <label for="copia">Copias de los libros</label>
+        <select id="copia" formControlName="copia">
+            <option *ngFor="let copia of listaCopiasBiblioteca" [value]="copia.id">{{copia.id}}</option>
+        </select>
 
--->
+        <label for="lector">Lectores</label>
+        <select id="lector" formControlName="lector">
+            <option *ngFor="let lector of listaLectores" [value]="lector.nsocio">{{lector.nombre}}</option>
+        </select>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css">
-
-<!--Formulario sin material-->
-<form [formGroup]="formulario">
-    <label for="copia">Copias de los libros</label>
-    <select id="copia" formControlName="copia">
-        <option *ngFor="let copia of listaCopias" [value]="copia.id">{{copia.id}}</option>
-    </select>
-
-    <label for="lector">Lectores</label>
-    <select id="lector" formControlName="lector">
-        <option *ngFor="let lector of listaLectores" [value]="lector.nombre">{{lector.nombre}}</option>
-    </select>
-
-    <button (click)="prestar()" type="submit">Prestar libro</button>
-</form>
-
-
+        <button (click)="prestar()" type="submit">Prestar libro</button>
+    </form>
+</div>

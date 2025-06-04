@@ -18,8 +18,6 @@ export class LibroService {
   }
 
   listarLibros():any {
-    let respuesta = this.httpClient.get('http://localhost:8080/libros/listado', { headers: this.headers });
-    console.log(respuesta);
     return this.httpClient.get('http://localhost:8080/libros/listado', { headers: this.headers });
   }
 

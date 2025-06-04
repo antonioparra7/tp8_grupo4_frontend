@@ -25,6 +25,8 @@ export class Prestamos {
   listaCopias: any[] = [];
   listaLectores: any[] = [];
 
+  listaCopiasBiblioteca: any[] = [];
+
   formulario: FormGroup;
   constructor(private copiaService: CopiaService, private lectorService: LectorService) {
     this.formulario = new FormGroup({
@@ -41,7 +43,9 @@ export class Prestamos {
   listarCopias() {
     this.copiaService.listarCopias().subscribe(
       (data: any) => {
+        console.log('Copias obtenidas:', data);
         this.listaCopias = data;
+        this.filtrarCopiasBiblioteca();
       },
       (error: any) => {
         console.error('Error al listar copias:', error);
@@ -49,9 +53,15 @@ export class Prestamos {
     );
   }
 
+  filtrarCopiasBiblioteca() {
+    this.listaCopiasBiblioteca = this.listaCopias.filter(copia => copia.estado === 'BIBLIOTECA');
+    console.log('Copias en estado BIBLIOTECA:', this.listaCopiasBiblioteca);
+  }
+
   listarLectores() {
     this.lectorService.listarLectores().subscribe(
       (data: any) => {
+        console.log('Lectores obtenidos:', data);
         this.listaLectores = data;
       },
       (error: any) => {
@@ -61,11 +71,32 @@ export class Prestamos {
   }
 
   prestar() {
-    const copiaId = this.formulario.get('copia')?.value;
-    const nombreLector = this.formulario.get('lector')?.value;
-    console.log('Copia seleccionada:', copiaId);
-    console.log('Lector seleccionado:', nombreLector);
-    alert(`Copia ID: ${copiaId}, Lector ID: ${nombreLector}`);
+    const idCopia = this.formulario.get('copia')?.value;
+    const idLector = this.formulario.get('lector')?.value;
+
+    // Comprobar que la copia esté en estado biblioteca
+    const copiaSeleccionada = this.listaCopias.find(c => c.id === parseInt(idCopia));
+    
+    if (copiaSeleccionada && copiaSeleccionada.estado === 'BIBLIOTECA') {
+      this.copiaService.prestarCopia(parseInt(idCopia), parseInt(idLector)).subscribe(
+        (response: any) => {
+          console.log('Préstamo realizado con éxito:', response);
+          if (response) {
+            this.listarCopias();
+            alert('Préstamo realizado con éxito');
+          } else {
+            alert('No se pudo realizar el préstamo. Verifique que la copia y el lector existan.');
+          }
+        },
+        (error: any) => {
+          console.error('Error al realizar el préstamo:', error);
+        }
+      );
+    } else {
+      alert('La copia no está disponible para préstamo o no existe.');
+    }
+
+
   }
 
 }

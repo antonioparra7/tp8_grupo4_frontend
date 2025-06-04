@@ -8,6 +8,30 @@
   width: 100%;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
+
+/*
+* Estilo con div muy grande para hacer click en prestamos
+*/
+a {
+  margin-top: 6rem;
+  width: 250px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #63d756;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 table {
-  width: 100%;
+  margin-top: 2rem;
 }

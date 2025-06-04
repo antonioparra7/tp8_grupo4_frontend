@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CopiaService {
+  
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -14,5 +15,9 @@ export class CopiaService {
 
   listarCopias():any {
     return this.httpClient.get('http://localhost:8080/copia/listado', { headers: this.headers });
+  }
+
+  prestarCopia(idCopia: number, idLector: number) {
+    return this.httpClient.put(`http://localhost:8080/prestamos/prestarCopia/${idCopia}/${idLector}`, {headers: this.headers});
   }
 }

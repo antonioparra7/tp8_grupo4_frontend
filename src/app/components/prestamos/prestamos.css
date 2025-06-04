@@ -11,3 +11,12 @@ button {
     cursor: pointer;
     border-radius: 10px;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
